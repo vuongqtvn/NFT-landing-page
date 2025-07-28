@@ -4,12 +4,20 @@
 interface FeatureIconProps {
   icon: string
   label: string
+  tag?: string
 }
 
-function FeatureIcon({ icon, label }: FeatureIconProps) {
+function FeatureIcon({ icon, label, tag }: FeatureIconProps) {
   return (
     <div className="flex flex-col items-center gap-2 md:gap-3 cursor-pointer px-3 md:px:0 text-center">
-      <img className="h-7 md:h-[42px]" src={icon} alt={label} />
+      <div className="relative">
+        <img className="h-7 md:h-[42px]" src={icon} alt={label} />
+        {tag && (
+          <div className="absolute -top-2 -right-1 md:-right-2 md:h-5 py-0.5 px-0.5 md:px-1.5 rounded bg-[#FF0000] text-white text-[8px] md:text-xs uppercase font-medium">
+            {tag}
+          </div>
+        )}
+      </div>
       <span className="text-[10px] leading-[12px] md:text-[14px] md:leading-[20px] uppercase text-white">
         {label}
       </span>
@@ -23,7 +31,7 @@ export function FeatureIcons() {
     { icon: '/images/ranking.svg', label: 'Ranking' },
     { icon: '/images/video-nft.svg', label: 'Video NFT' },
     { icon: '/images/how-to-play.svg', label: 'How to buy' },
-    { icon: '/images/new-nfts.svg', label: 'New NFTS' },
+    { icon: '/images/new-nfts.svg', label: 'New NFTS', tag: 'new' },
     { icon: '/images/road-maps.svg', label: 'Roadmaps' },
   ]
 
@@ -36,6 +44,7 @@ export function FeatureIcons() {
               key={index}
               icon={feature.icon}
               label={feature.label}
+              tag={feature?.tag}
             />
           ))}
         </div>
